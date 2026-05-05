@@ -1,0 +1,32 @@
+# --- Python Specific ---
+__pycache__/
+*.py[cod]
+*$py.class
+.ipynb_checkpoints/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# --- Python Environments ---
+venv/
+.venv/
+env/
+ENV/
+bin/
+lib/
+include/
+
+# --- Secrets & Environment Variables ---
+.env
+.env.local
+.env.*.local
+.python-version
+
+# --- OS Caches ---
+.DS_Store
+Thumbs.db
+
+# --- Build Artifacts ---
+build/
+dist/
+*.egg-info/
