@@ -1,5 +1,6 @@
 from models import Graph
 
+
 class Visualizer:
     """Handles the colored terminal output for the simulation.
 
@@ -25,35 +26,39 @@ class Visualizer:
         self.graph = graph
 
     def _get_color_code(self, color_name: str | None) -> str:
-        """Retrieves the ANSI color code, defaulting to standard text if none."""
+        """Retrieves the ANSI color code"""
         if not color_name:
             return self.ANSI_COLORS["reset"]
-        
-        # .lower() ensures we match even if the file says "Red" instead of "red"
-        return self.ANSI_COLORS.get(color_name.lower(), self.ANSI_COLORS["reset"])
+
+        return self.ANSI_COLORS.get(
+            color_name.lower(), self.ANSI_COLORS["reset"]
+            )
 
     def print_turn(self, turn_logs: list[str]) -> None:
         """Takes a list of drone movements and prints them with zone colors."""
         colored_output: list[str] = []
 
         for log in turn_logs:
-            # log looks like "D1-roof1" or "D2-corridorA-tunnelB" (if in transit)
+            # log looks like "D1-roof1" or "D2-corridorA-tunnelB"
             parts = log.split("-", 1)
-            
+
             if len(parts) == 2:
                 drone_id, destination = parts
-                
+
                 # Check if the destination is a single zone in our graph
                 if destination in self.graph.nodes:
                     target_zone = self.graph.nodes[destination]
                     color_code = self._get_color_code(target_zone.color)
                     reset_code = self.ANSI_COLORS["reset"]
-                    
+
                     # Format: D1-[COLOR]roof1[RESET]
-                    colored_log = f"{drone_id}-{color_code}{destination}{reset_code}"
+                    colored_log = (
+                        f"{drone_id}-{color_code}"
+                        f"{destination}{reset_code}"
+                    )
                     colored_output.append(colored_log)
                 else:
-                    # If it's a mid-air transit (e.g., roof1-restrictedZone), print as standard text
+                    # If it's a mid-air transit, print as standard text
                     colored_output.append(log)
             else:
                 # Fallback for unexpected formats
