@@ -1,0 +1,23 @@
+# Python cache files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Linter caches (Mypy and Flake8)
+.mypy_cache/
+.pytest_cache/
+
+# Virtual environments
+venv/
+env/
+.env/
+
+# IDE and Editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS hidden files
+.DS_Store
+Thumbs.db
